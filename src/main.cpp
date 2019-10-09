@@ -25,6 +25,7 @@
 
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
+#include <opencv2/core/utils/logger.hpp>
 
 #include "tclap/CmdLine.h"
 #include "support/filesystem.h"
@@ -57,6 +58,8 @@ bool program_active = true;
 
 int main( int argc, const char** argv )
 {
+    cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_VERBOSE);
+
   std::vector<std::string> filenames;
   std::string configFile = "";
   bool outputJson = false;
@@ -253,7 +256,7 @@ int main( int argc, const char** argv )
 
         cv::VideoCapture cap = cv::VideoCapture();
         cap.open(filename);
-        cap.set(CV_CAP_PROP_POS_MSEC, seektoms);
+        cap.set(cv::CAP_PROP_POS_MSEC, seektoms);
 
         while (cap.read(frame))
         {
